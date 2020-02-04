@@ -4,7 +4,7 @@ import '../styles/MonthGrid.scss'
 class MonthGrid extends Component {
 
     state = {
-        month: 1,
+        month: 10,
         monthName: '',
         year: 2020,
         daysNumber: null,
