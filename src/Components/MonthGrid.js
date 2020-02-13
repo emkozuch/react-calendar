@@ -4,6 +4,7 @@ import '../styles/MonthGrid.scss'
 class MonthGrid extends Component {
 
     state = {
+        currentDate: this.props.currentDate,
         month: 10,
         monthName: '',
         year: 2020,
@@ -23,8 +24,7 @@ class MonthGrid extends Component {
         })
     }
     getFirstDay() {
-        const currentDate = new Date()
-        currentDate.setMonth(this.state.month)
+        let currentDate = new Date()
         currentDate.setDate(1)
         const firstDay = currentDate.getDay()
         this.setState({

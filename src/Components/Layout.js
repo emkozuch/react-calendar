@@ -5,7 +5,7 @@ import Menu from './Menu'
 const Layout = (props) => {
     return (
         <div className="layout-container">
-            <Menu/>
+
             <div className="children-container">
                 {props.children}
             </div>

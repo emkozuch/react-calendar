@@ -1,16 +1,33 @@
-import React from 'react';
+
+import React, { Component } from 'react'
 import './styles/App.scss';
 import Layout from './Components/Layout'
 import MonthGrid from './Components/MonthGrid';
+import Menu from './Components/Menu'
+export class App extends Component {
+  state = {
+    currentDate: new Date(),
+    currentDisplay: 'month'
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <Layout>
-        <MonthGrid/>
-      </Layout>
-    </div>
-  );
+  getDataFromMenu = (menuDate, menuDisplay) => {
+    this.setState({
+      currentDate: menuDate,
+      currentDisplay: menuDisplay
+    })
+    
+  }
+  componentDidMount =() => {
+    this.getDataFromMenu()
+  }
+  render() {
+    return (
+      <div>
+        <Menu  parentCallback={this.getDataFromMenu} />
+        <MonthGrid currentDate={this.state.currentDate} />
+        </div>
+    )
+  }
 }
 
-export default App;
+export default App
