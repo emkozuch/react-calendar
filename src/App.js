@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react'
+import './styles/App.scss';
+import Layout from './Components/Layout'
+import MonthGrid from './Components/MonthGrid';
+import Menu from './Components/Menu'
+export class App extends Component {
+  state = {
+    currentDate: new Date(),
+    currentDisplay: 'month'
+  }
+
+  getDataFromMenu = (menuDate, menuDisplay) => {
+    this.setState({
+      currentDate: menuDate,
+      currentDisplay: menuDisplay
+    })
+    
+  }
+  componentDidMount =() => {
+    this.getDataFromMenu()
+  }
+  render() {
+    return (
+      <div>
+        <Menu  parentCallback={this.getDataFromMenu} />
+        <MonthGrid currentDate={this.state.currentDate} />
+        </div>
+    )
+  }
 }
 
-export default App;
+export default App

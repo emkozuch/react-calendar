@@ -1,0 +1,23 @@
+.month-name{
+    display: flex;
+    justify-content: space-between;
+}
+.week-days-container{
+    // width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.prev-day{
+    border: 1px solid black;
+    background-color: grey;
+}
+.month-grid-container{
+    // background: white;
+    height: 93vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    .day{
+        border: 1px  inset black;
+    }
+}
