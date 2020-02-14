@@ -25,24 +25,26 @@ class MonthGrid extends Component {
         const currentDate = this.props.dateToDisplay
         currentDate.setDate(1)
         const firstDayOfWeek = currentDate.getDay()
-
         this.setState({
             firstDayOfWeek: firstDayOfWeek
         })
     }
     renderPrevDays() {
-        const day1 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
-        const day2 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
-        const day3 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
-        const day4 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
-        const day5 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
-        const day6 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
-        day1.setDate(day1.getDate() - 1)
-        day2.setDate(day2.getDate() - 2)
-        day3.setDate(day3.getDate() - 3)
-        day4.setDate(day4.getDate() - 4)
-        day5.setDate(day5.getDate() - 5)
-        day6.setDate(day6.getDate() - 6)
+
+        const daysArray = [
+            new Date(this.props.dateToDisplay.getFullYear(),
+                this.props.dateToDisplay.getMonth(), 0),
+            new Date(this.props.dateToDisplay.getFullYear(),
+                this.props.dateToDisplay.getMonth(), -1),
+            new Date(this.props.dateToDisplay.getFullYear(),
+                this.props.dateToDisplay.getMonth(), -2),
+            new Date(this.props.dateToDisplay.getFullYear(),
+                this.props.dateToDisplay.getMonth(), -3),
+            new Date(this.props.dateToDisplay.getFullYear(),
+                this.props.dateToDisplay.getMonth(), -4),
+            new Date(this.props.dateToDisplay.getFullYear(),
+                this.props.dateToDisplay.getMonth(), -5)
+        ]
 
         let daysBefore
 
@@ -52,69 +54,60 @@ class MonthGrid extends Component {
                 break;
             case 2:
                 daysBefore = (<>
-                    <div className="prev-day">{day1.getDate()}</div>
+                    <div key={`prev-0`} className="prev-day">{daysArray[0].getDate()}</div>
                 </>)
                 break;
             case 3:
                 daysBefore = (<>
-                    <div className="prev-day">{day2.getDate()}</div>
-                    <div className="prev-day">{day1.getDate()}</div>
+                    {daysArray.map((day, index) => {
+                        while (index < 2) {
+                            return <div key={`prev-${index}`} className="prev-day">{day.getDate()}</div>
+                        }
+                    })}
                 </>)
                 break;
             case 4:
                 daysBefore = (<>
-                    <div className="prev-day">{day3.getDate()}</div>
-                    <div className="prev-day">{day2.getDate()}</div>
-                    <div className="prev-day">{day1.getDate()}</div>
+                    {daysArray.map((day, index) => {
+                        while (index < 3) {
+                            return <div key={`prev-${index}`} className="prev-day">{day.getDate()}</div>
+                        }
+                    })}
                 </>)
                 break;
             case 5:
                 daysBefore = (<>
-                    <div className="prev-day">{day4.getDate()}</div>
-                    <div className="prev-day">{day3.getDate()}</div>
-                    <div className="prev-day">{day2.getDate()}</div>
-                    <div className="prev-day">{day1.getDate()}</div>
+                    {daysArray.map((day, index) => {
+                        while (index < 4) {
+                            return <div key={`prev-${index}`} className="prev-day">{day.getDate()}</div>
+                        }
+                    })}
                 </>)
                 break;
             case 6:
                 daysBefore = (<>
-                    <div className="prev-day">{day5.getDate()}</div>
-                    <div className="prev-day">{day4.getDate()}</div>
-                    <div className="prev-day">{day3.getDate()}</div>
-                    <div className="prev-day">{day2.getDate()}</div>
-                    <div className="prev-day">{day1.getDate()}</div>
+                    {daysArray.map((day, index) => {
+                        while (index < 5) {
+                            return <div key={`prev-${index}`} className="prev-day">{day.getDate()}</div>
+                        }
+                    })}
                 </>)
                 break;
             case 0:
                 daysBefore = (<>
-                    <div className="prev-day">{day6.getDate()}</div>
-                    <div className="prev-day">{day5.getDate()}</div>
-                    <div className="prev-day">{day4.getDate()}</div>
-                    <div className="prev-day">{day3.getDate()}</div>
-                    <div className="prev-day">{day2.getDate()}</div>
-                    <div className="prev-day">{day1.getDate()}</div>
+                    {daysArray.map((day, index) => (
+                        <div key={`prev-${index}`} className="prev-day">{day.getDate()}</div>
+                    ))}
                 </>)
                 break;
-
             default:
                 break;
         }
         return daysBefore
     }
     renderNextDays() {
-        const day1 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
-        const day2 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
-        const day3 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
-        const day4 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
-        const day5 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
-        const day6 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
-        day1.setDate(day1.getDate() + 1)
-        day2.setDate(day2.getDate() + 2)
-        day3.setDate(day3.getDate() + 3)
-        day4.setDate(day4.getDate() + 4)
-        day5.setDate(day5.getDate() + 5)
-        day6.setDate(day6.getDate() + 6)
-        let daysArray = [day1.getDate(), day2.getDate(), day3.getDate(), day4.getDate(), day5.getDate(), day6.getDate()]
+
+        const daysArray = [1, 2, 3, 4, 5, 6, 7]
         let daysAfter
 
         switch (this.state.firstDayOfWeek) {
@@ -123,43 +116,50 @@ class MonthGrid extends Component {
                     daysAfter = null
                 } else if (this.state.daysNumber === 28) {
                     daysAfter = (<>
-                        <div className="prev-day">{day1.getDate()}</div>
+                        <div key='nextDay-0' className="next-day">{daysArray[0]}</div>
                     </>)
                 } else if (this.state.daysNumber === 30) {
                     daysAfter = (<>
-                        {daysArray.map((day) => {
-                            return <div className="prev-day">{day}</div>
+                        {daysArray.map((day, index) => {
+                            while (index < 6) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
+                            }
+                            return null
                         })}
                     </>)
                 } else {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
-                            if (index < 5) {
-                                return <div className="prev-day">{day}</div>
+                            while (index < 5) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 }
                 break;
+
             case 6:
                 if (this.state.daysNumber === 28) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
-                            if (index < 2) {
-                                return <div className="prev-day">{day}</div>
+                            while (index < 2) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 29) {
                     daysAfter = (<>
-                        <div className="prev-day">{day1.getDate()}</div>
+                        <div key='nextDay-0' className="next-day">{daysArray[0]}</div>
                     </>)
                 } else if (this.state.daysNumber === 31) {
                     daysAfter = (<>
-                        {daysArray.map((day) => {
-                            return <div className="prev-day">{day}</div>
+                        {daysArray.map((day, index) => {
+                            while (index < 6) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
+                            }
+                            return null
                         })}
                     </>)
                 } else daysAfter = null
@@ -169,22 +169,22 @@ class MonthGrid extends Component {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 3) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 29) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 2) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 30) {
-                    daysAfter = <div className="prev-day">{day1.getDate()}</div>
+                    return <div key="nextDay-0" className="next-day">{daysArray[0]}</div>
                 } else {
                     daysAfter = null
                 }
@@ -194,31 +194,31 @@ class MonthGrid extends Component {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 4) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 29) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 3) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 30) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 2) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else {
-                    daysAfter = <div className="prev-day">{day1.getDate()}</div>
+                    daysAfter = <div key="nextDay-0" className="next-day">{daysArray[0]}</div>
                 }
                 break;
             case 3:
@@ -226,25 +226,25 @@ class MonthGrid extends Component {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 5) {
-                                return <div className="prev-day">{day}</div>
+                                return <div className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 29) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 4) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 30) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 3) {
-                                return <div className="prev-day">{day}</div>
+                                return <div className="next-day">{day}</div>
                             }
                             return false
                         })}
@@ -253,7 +253,7 @@ class MonthGrid extends Component {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 2) {
-                                return <div className="prev-day">{day}</div>
+                                return <div className="next-day">{day}</div>
                             }
                             return false
                         })}
@@ -264,64 +264,76 @@ class MonthGrid extends Component {
             case 2:
                 if (this.state.daysNumber === 28) {
                     daysAfter = (<>
-                        {daysArray.map((day) => {
-                            return <div className="prev-day">{day}</div>
-                        })}
+                        {daysArray.map((day, index) => {
+                            while (index < 6) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
+                            }
+                            return null
+                        }
+                        )
+                        }
+
                     </>)
                 } else if (this.state.daysNumber === 29) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
-                            if (index < 5) {
-                                return <div className="prev-day">{day}</div>
+                            while (index < 5) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else if (this.state.daysNumber === 30) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 4) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 3) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 }
                 break;
             case 1:
                 if (this.state.daysNumber === 28) {
-                    daysAfter = null
+                    {daysArray.map((day, index) => {
+                            return <div key={`nextDay-${index}`} className="next-day">{day}</div>
+                        })}
                 } else if (this.state.daysNumber === 29) {
                     daysAfter = (<>
-                        {daysArray.map((day) => {
-                            return <div className="prev-day">{day}</div>
+                        {daysArray.map((day, index) => {
+                            while (index < 6) {
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
+                            }
+                            return null
+
                         })}
                     </>)
                 } else if (this.state.daysNumber === 30) {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 5) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 } else {
                     daysAfter = (<>
                         {daysArray.map((day, index) => {
                             if (index < 4) {
-                                return <div className="prev-day">{day}</div>
+                                return <div key={`nextDay-${index}`} className="next-day">{day}</div>
                             }
-                            return false
+                            return null
                         })}
                     </>)
                 }
