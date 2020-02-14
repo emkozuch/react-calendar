@@ -17,14 +17,19 @@ export class App extends Component {
     })
     
   }
-  componentDidMount =() => {
+  componentWillReceiveProps(){
     this.getDataFromMenu()
   }
+  componentDidMount =() => {
+ 
+    
+  }
   render() {
+   
     return (
       <div>
         <Menu  parentCallback={this.getDataFromMenu} />
-        <MonthGrid currentDate={this.state.currentDate} />
+        <MonthGrid dateToDisplay={this.state.currentDate} />
         </div>
     )
   }

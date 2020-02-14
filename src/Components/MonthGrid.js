@@ -4,17 +4,15 @@ import '../styles/MonthGrid.scss'
 class MonthGrid extends Component {
 
     state = {
-        currentDate: this.props.currentDate,
-        month: 10,
         monthName: '',
-        year: 2020,
         daysNumber: null,
-        firstDay: null
+        firstDayOfWeek: null,
     }
+
     updateMonthName() {
         const monthsNames = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
         this.setState({
-            monthName: monthsNames[this.state.month]
+            monthName: monthsNames[this.props.dateToDisplay.getMonth()]
         })
     }
     getNumberOfDays(year, month) {
@@ -24,20 +22,21 @@ class MonthGrid extends Component {
         })
     }
     getFirstDay() {
-        let currentDate = new Date()
+        const currentDate = this.props.dateToDisplay
         currentDate.setDate(1)
-        const firstDay = currentDate.getDay()
+        const firstDayOfWeek = currentDate.getDay()
+
         this.setState({
-            firstDay: firstDay
+            firstDayOfWeek: firstDayOfWeek
         })
     }
     renderPrevDays() {
-        const day1 = new Date(this.state.year, this.state.month, 1)
-        const day2 = new Date(this.state.year, this.state.month, 1)
-        const day3 = new Date(this.state.year, this.state.month, 1)
-        const day4 = new Date(this.state.year, this.state.month, 1)
-        const day5 = new Date(this.state.year, this.state.month, 1)
-        const day6 = new Date(this.state.year, this.state.month, 1)
+        const day1 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
+        const day2 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
+        const day3 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
+        const day4 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
+        const day5 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
+        const day6 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 1)
         day1.setDate(day1.getDate() - 1)
         day2.setDate(day2.getDate() - 2)
         day3.setDate(day3.getDate() - 3)
@@ -47,7 +46,7 @@ class MonthGrid extends Component {
 
         let daysBefore
 
-        switch (this.state.firstDay) {
+        switch (this.state.firstDayOfWeek) {
             case 1:
                 daysBefore = null
                 break;
@@ -103,12 +102,12 @@ class MonthGrid extends Component {
         return daysBefore
     }
     renderNextDays() {
-        const day1 = new Date(this.state.year, this.state.month, 0)
-        const day2 = new Date(this.state.year, this.state.month, 0)
-        const day3 = new Date(this.state.year, this.state.month, 0)
-        const day4 = new Date(this.state.year, this.state.month, 0)
-        const day5 = new Date(this.state.year, this.state.month, 0)
-        const day6 = new Date(this.state.year, this.state.month, 0)
+        const day1 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
+        const day2 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
+        const day3 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
+        const day4 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
+        const day5 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
+        const day6 = new Date(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth(), 0)
         day1.setDate(day1.getDate() + 1)
         day2.setDate(day2.getDate() + 2)
         day3.setDate(day3.getDate() + 3)
@@ -118,7 +117,7 @@ class MonthGrid extends Component {
         let daysArray = [day1.getDate(), day2.getDate(), day3.getDate(), day4.getDate(), day5.getDate(), day6.getDate()]
         let daysAfter
 
-        switch (this.state.firstDay) {
+        switch (this.state.firstDayOfWeek) {
             case 0:
                 if (this.state.daysNumber === 29) {
                     daysAfter = null
@@ -333,10 +332,15 @@ class MonthGrid extends Component {
         }
         return daysAfter
     }
-    componentDidMount() {
-        this.getNumberOfDays(this.state.year, this.state.month + 1)
+    componentWillReceiveProps(props) {
+        this.setState({
+            currentDate: props.dateToDisplay,
+            month: props.dateToDisplay.getMonth(),
+            year: props.dateToDisplay.getFullYear()
+        })
         this.getFirstDay()
         this.updateMonthName()
+        this.getNumberOfDays(this.props.dateToDisplay.getFullYear(), this.props.dateToDisplay.getMonth() + 1)
     }
 
 
@@ -351,7 +355,7 @@ class MonthGrid extends Component {
             <div>
                 <div className="month-name">
                     <h1>{this.state.monthName}</h1>
-                    <h2>{this.state.year}</h2>
+                    <h2>{this.props.dateToDisplay.getFullYear()}</h2>
                 </div>
                 <div className="week-days-container">
                     <div>
