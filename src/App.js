@@ -7,7 +7,7 @@ import Menu from './Components/Menu'
 export class App extends Component {
   state = {
     currentDate: new Date(),
-    currentDisplay: 'month'
+    currentDisplay: 'month',
   }
 
   getDataFromMenu = (menuDate, menuDisplay) => {
@@ -20,16 +20,13 @@ export class App extends Component {
   componentWillReceiveProps(){
     this.getDataFromMenu()
   }
-  componentDidMount =() => {
- 
-    
-  }
+
   render() {
    
     return (
       <div>
         <Menu  parentCallback={this.getDataFromMenu} />
-        <MonthGrid dateToDisplay={this.state.currentDate} />
+        <MonthGrid  key={this.state.currentDate} dateToDisplay={this.state.currentDate} />
         </div>
     )
   }
